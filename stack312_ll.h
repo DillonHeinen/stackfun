@@ -35,13 +35,13 @@ void push(StackEntry e, Stack312 *s);
 // Postcondition: Function returns top StackEntry on stack
 StackEntry pop(Stack312 *s);
 
-void BuildGrid(char fname[], char *grid[], int *numRows, int *numCols);
+void buildGrid(char fname[], char *grid[], int *numRows, int *numCols);
 
-void ShowGrid(char *grid[], int numRows, int numCols);
+void showGrid(char *grid[], int numRows, int numCols);
 
-void CheckNeighbors(StackEntry entryUnderTest, char *grid[], Stack312 *s, int numRows, int numCols);
+void checkNeighbors(StackEntry entryUnderTest, char *grid[], Stack312 *s, int numRows, int numCols);
 
-void Prompt(int *rowSelect, int *colSelect, char *colorSelect, char *grid[]);
+void prompt(int *rowSelect, int *colSelect, char *colorSelect, char *grid[], int numRows, int numCols);
 
 // Postcondition: Converts a char to a StackEntry
-StackEntry Stackify(char *grid[], int rowSelect, int colSelect);
+StackEntry stackify(char *grid[], int rowSelect, int colSelect);
