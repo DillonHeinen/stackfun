@@ -31,7 +31,7 @@ StackEntry pop(Stack312 *s) {
     return e;
 }
 
-void BuildGrid(char fname[], char *grid[], int *numRows, int *numCols) {
+void buildGrid(char fname[], char *grid[], int *numRows, int *numCols) {
     FILE *fptr;
     fptr = fopen(fname, "r");     // open file in read mode
 
@@ -55,7 +55,7 @@ void BuildGrid(char fname[], char *grid[], int *numRows, int *numCols) {
     }
 }
 
-void ShowGrid(char *grid[], int numRows, int numCols) {
+void showGrid(char *grid[], int numRows, int numCols) {
     for(int i = 0; i < numRows; i++) {
         for(int j = 0; j < numCols; j++) {
             printf("%c", grid[i][j]);
@@ -65,59 +65,71 @@ void ShowGrid(char *grid[], int numRows, int numCols) {
     printf("\n");
 }
 
-void CheckNeighbors(StackEntry entryUnderTest, char *grid[], Stack312 *s, int numRows, int numCols) {
+void checkNeighbors(StackEntry entryUnderTest, char *grid[], Stack312 *s, int numRows, int numCols) {
     int row = entryUnderTest.row;
     int col = entryUnderTest.col;
     char color = entryUnderTest.color;
 
+    if((numRows == 0) && (numCols != 0)) {
+        if(grid[row][col + 1] == color) {
+            StackEntry e = stackify(grid, (row), (col + 1));
+            push(e, s);
+        }
+    }
+    if((numCols == 0) && (numRows != 0)) {
+        if(grid[row][col + 1] == color) {
+            StackEntry e = stackify(grid, (row + 1), (col));
+            push(e, s);
+        }
+    }
     if(row == 0) {
         if(col == 0) {
             if(grid[row + 1][col] == color) {
-                StackEntry e = Stackify(grid, (row + 1), (col));
+                StackEntry e = stackify(grid, (row + 1), (col));
                 push(e, s);
             }
             if(grid[row + 1][col + 1] == color) {
-                StackEntry e = Stackify(grid, (row + 1), (col + 1));
+                StackEntry e = stackify(grid, (row + 1), (col + 1));
                 push(e, s);
             }
             if(grid[row][col + 1] == color) {
-                StackEntry e = Stackify(grid, (row), (col + 1));
+                StackEntry e = stackify(grid, (row), (col + 1));
                 push(e, s);
             }
         }
         else if(col == (numCols - 1)) {
             if(grid[row][col - 1] == color) {
-                StackEntry e = Stackify(grid, (row), (col - 1));
+                StackEntry e = stackify(grid, (row), (col - 1));
                 push(e, s);
             }
             if(grid[row + 1][col - 1] == color) {
-                StackEntry e = Stackify(grid, (row + 1), (col - 1));
+                StackEntry e = stackify(grid, (row + 1), (col - 1));
                 push(e, s);
             }
             if(grid[row + 1][col] == color) {
-                StackEntry e = Stackify(grid, (row + 1), (col));
+                StackEntry e = stackify(grid, (row + 1), (col));
                 push(e, s);
             }
         }
         else {
             if(grid[row][col - 1] == color) {
-                StackEntry e = Stackify(grid, (row), (col - 1));
+                StackEntry e = stackify(grid, (row), (col - 1));
                 push(e, s);
             }
             if(grid[row][col + 1] == color){
-                StackEntry e = Stackify(grid, (row), (col + 1));
+                StackEntry e = stackify(grid, (row), (col + 1));
                 push(e, s);
             }
             if(grid[row + 1][col - 1] == color) {
-                StackEntry e = Stackify(grid, (row + 1), (col - 1));
+                StackEntry e = stackify(grid, (row + 1), (col - 1));
                 push(e, s);
             }
             if(grid[row + 1][col] == color) {
-                StackEntry e = Stackify(grid, (row + 1), (col));
+                StackEntry e = stackify(grid, (row + 1), (col));
                 push(e, s);
             }
             if(grid[row + 1][col + 1] == color) {
-                StackEntry e = Stackify(grid, (row + 1), (col + 1));
+                StackEntry e = stackify(grid, (row + 1), (col + 1));
                 push(e, s);
             }
         }
@@ -125,37 +137,37 @@ void CheckNeighbors(StackEntry entryUnderTest, char *grid[], Stack312 *s, int nu
     else if(col == 0) {
         if(row == (numRows - 1)) {
             if(grid[row - 1][col] == color) {
-                StackEntry e = Stackify(grid, (row -1 ), (col));
+                StackEntry e = stackify(grid, (row -1 ), (col));
                 push(e, s);
             }
             if(grid[row - 1][col + 1] == color) {
-                StackEntry e = Stackify(grid, (row - 1), (col + 1));
+                StackEntry e = stackify(grid, (row - 1), (col + 1));
                 push(e, s);
             }
             if(grid[row][col + 1] == color) {
-                StackEntry e = Stackify(grid, (row), (col + 1));
+                StackEntry e = stackify(grid, (row), (col + 1));
                 push(e, s);
             }
         }
         else {
             if(grid[row - 1][col] == color) {
-                StackEntry e = Stackify(grid, (row - 1), (col));
+                StackEntry e = stackify(grid, (row - 1), (col));
                 push(e, s);
             }
             if(grid[row - 1][col + 1] == color) {
-                StackEntry e = Stackify(grid, (row - 1), (col + 1));
+                StackEntry e = stackify(grid, (row - 1), (col + 1));
                 push(e, s);
             }
             if(grid[row][col + 1] == color) {
-                StackEntry e = Stackify(grid, (row), (col + 1));
+                StackEntry e = stackify(grid, (row), (col + 1));
                 push(e, s);
             }
             if(grid[row + 1][col + 1] == color) {
-                StackEntry e = Stackify(grid, (row + 1), ( + 1));
+                StackEntry e = stackify(grid, (row + 1), ( + 1));
                 push(e, s);
             }
             if(grid[row + 1][col] == color) {
-                StackEntry e = Stackify(grid, (row + 1), (col));
+                StackEntry e = stackify(grid, (row + 1), (col));
                 push(e, s);
             }
         }
@@ -163,118 +175,128 @@ void CheckNeighbors(StackEntry entryUnderTest, char *grid[], Stack312 *s, int nu
     else if(col == (numCols - 1)) {
         if(row == (numRows - 1)) {
             if(grid[row - 1][col] == color) {
-                StackEntry e = Stackify(grid, (row - 1), (col));
+                StackEntry e = stackify(grid, (row - 1), (col));
                 push(e, s);
             }
             if(grid[row - 1][col - 1] == color) {
-                StackEntry e = Stackify(grid, (row - 1), (col - 1));
+                StackEntry e = stackify(grid, (row - 1), (col - 1));
                 push(e, s);
             }
             if(grid[row][col - 1] == color) {
-                StackEntry e = Stackify(grid, (row), (col - 1));
+                StackEntry e = stackify(grid, (row), (col - 1));
                 push(e, s);
             }
         }
         else {
             if(grid[row - 1][col] == color) {
-                StackEntry e = Stackify(grid, (row - 1), (col));
+                StackEntry e = stackify(grid, (row - 1), (col));
                 push(e, s);
             }
             if(grid[row - 1][col - 1] == color) {
-                StackEntry e = Stackify(grid, (row - 1), (col - 1));
+                StackEntry e = stackify(grid, (row - 1), (col - 1));
                 push(e, s);
             }
             if(grid[row][col - 1] == color) {
-                StackEntry e = Stackify(grid, (row), (col - 1));
+                StackEntry e = stackify(grid, (row), (col - 1));
                 push(e, s);
             }
             if(grid[row + 1][col - 1] == color) {
-                StackEntry e = Stackify(grid, (row + 1), (col - 1));
+                StackEntry e = stackify(grid, (row + 1), (col - 1));
                 push(e, s);
             }
             if(grid[row + 1][col] == color) {
-                StackEntry e = Stackify(grid, (row + 1), (col));
+                StackEntry e = stackify(grid, (row + 1), (col));
                 push(e, s);
             }
         }
     }
     else if(row == (numRows - 1)) {
         if(grid[row][col - 1] == color) {
-            StackEntry e = Stackify(grid, (row), (col - 1));
+            StackEntry e = stackify(grid, (row), (col - 1));
             push(e, s);
         }
         if(grid[row][col + 1] == color) {
-            StackEntry e = Stackify(grid, (row), (col + 1));
+            StackEntry e = stackify(grid, (row), (col + 1));
             push(e, s);
         }
         if(grid[row - 1][col - 1] == color) {
-            StackEntry e = Stackify(grid, (row - 1), (col - 1));
+            StackEntry e = stackify(grid, (row - 1), (col - 1));
             push(e, s);
         }
         if(grid[row - 1][col] == color) {
-            StackEntry e = Stackify(grid, (row - 1), (col));
+            StackEntry e = stackify(grid, (row - 1), (col));
             push(e, s);
         }
         if(grid[row - 1][col + 1] == color) {
-            StackEntry e = Stackify(grid, (row - 1), (col + 1));
+            StackEntry e = stackify(grid, (row - 1), (col + 1));
             push(e, s);
         }
     }
     else {
         if(grid[row - 1][col - 1] == color) {
-            StackEntry e = Stackify(grid, (row - 1), (col - 1));
+            StackEntry e = stackify(grid, (row - 1), (col - 1));
             push(e, s);
         }
         if(grid[row - 1][col] == color) {
-            StackEntry e = Stackify(grid, (row - 1), (col));
+            StackEntry e = stackify(grid, (row - 1), (col));
             push(e, s);
         }
         if(grid[row - 1][col + 1] == color) {
-            StackEntry e = Stackify(grid, (row - 1), (col + 1));
+            StackEntry e = stackify(grid, (row - 1), (col + 1));
             push(e, s);
         }
         if(grid[row][col - 1] == color) {
-            StackEntry e = Stackify(grid, (row), (col - 1));
+            StackEntry e = stackify(grid, (row), (col - 1));
             push(e, s);
         }
         if(grid[row][col + 1] == color) {
-            StackEntry e = Stackify(grid, (row), (col + 1));
+            StackEntry e = stackify(grid, (row), (col + 1));
             push(e, s);
         }
         if(grid[row + 1][col - 1] == color) {
-            StackEntry e = Stackify(grid, (row + 1), (col - 1));
+            StackEntry e = stackify(grid, (row + 1), (col - 1));
             push(e, s);
         }
         if(grid[row + 1][col] == color) {
-            StackEntry e = Stackify(grid, (row + 1), (col));
+            StackEntry e = stackify(grid, (row + 1), (col));
             push(e, s);
         }
         if(grid[row + 1][col + 1] == color) {
-            StackEntry e = Stackify(grid, (row + 1), (col + 1));
+            StackEntry e = stackify(grid, (row + 1), (col + 1));
             push(e, s);
         }
     }
 }
 
-void Prompt(int *rowSelect, int *colSelect, char *colorSelect, char *grid[]) {
+void prompt(int *rowSelect, int *colSelect, char *colorSelect, char *grid[], int numRows, int numCols) {
     printf("Enter a row:");
     scanf("%d", rowSelect);
+    if (*rowSelect > numRows - 1) {
+        printf("That number was too high");
+        exit(0);
+    }
     if (*rowSelect == -1) {
         free(grid);
         exit(0);
     }
+
     printf("Enter a column:");
     scanf("%d", colSelect);
+    if (*colSelect > numCols - 1) {
+        printf("That number was too high");
+        exit(0);
+    }
     if (*colSelect == -1) {
         free(grid);
         exit(0);
     }
+
     printf("Enter a color:");
     scanf(" %c", colorSelect);
     printf("\n");
 }
 
-StackEntry Stackify(char *grid[], int rowSelect, int colSelect) {
+StackEntry stackify(char *grid[], int rowSelect, int colSelect) {
     StackEntry pixel;
     pixel.row = rowSelect;
     pixel.col = colSelect;
