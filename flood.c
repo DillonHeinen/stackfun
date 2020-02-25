@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     int colSelect;
     char colorSelect;
 
-    Stack312 s;
+    Stack312 *s;
 
     BuildGrid(fname, grid, &numRows, &numCols);
 
@@ -29,5 +29,15 @@ int main(int argc, char *argv[]) {
 
     Prompt(&rowSelect, &colSelect, &colorSelect);
 
-    printf("%c", grid[rowSelect][colSelect]);
+    printf("%c\n", grid[rowSelect][colSelect]);
+
+    StackEntry origin = Stackify(grid, rowSelect, colSelect);
+
+    push(origin, s);
+
+    while(s->top != NULL) {
+        pop(s);
+        checkNeighbors(e);
+        grid[e.row][e.col] = colorSelect;
+    }
 }
