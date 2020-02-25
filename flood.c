@@ -21,23 +21,27 @@ int main(int argc, char *argv[]) {
     int colSelect;
     char colorSelect;
 
-    Stack312 *s;
+    Stack312 s;
+    makeStack(&s);
 
     BuildGrid(fname, grid, &numRows, &numCols);
 
-    ShowGrid(grid, numRows, numCols);
+    while(true) {
+        ShowGrid(grid, numRows, numCols);
 
-    Prompt(&rowSelect, &colSelect, &colorSelect);
+        Prompt(&rowSelect, &colSelect, &colorSelect, grid);
+        /*rowSelect = 0;
+        colSelect = 0;
+        colorSelect = 'p';*/
 
-    printf("%c\n", grid[rowSelect][colSelect]);
+        StackEntry entryUnderTest = Stackify(grid, rowSelect, colSelect);
 
-    StackEntry origin = Stackify(grid, rowSelect, colSelect);
+        push(entryUnderTest, &s);
 
-    push(origin, s);
-
-    while(s->top != NULL) {
-        pop(s);
-        checkNeighbors(e);
-        grid[e.row][e.col] = colorSelect;
+        while (s.top != NULL) {
+            entryUnderTest = pop(&s);
+            CheckNeighbors(entryUnderTest, grid, &s, numRows, numCols);
+            grid[entryUnderTest.row][entryUnderTest.col] = colorSelect;
+        }
     }
 }
