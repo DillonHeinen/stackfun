@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 
 //    char *fname = (char*) malloc(strlen(argv[1]));
 //    strcpy(fname, argv[1]);
-    char fname[] = "C:\\Users\\dillo\\Desktop\\file.txt";
+    char fname[] = "C:\\Users\\Dillon\\Desktop\\file.txt";
 
     const int MAX_ROWS = 25;
 
@@ -24,23 +24,25 @@ int main(int argc, char *argv[]) {
     Stack312 s;
     makeStack(&s);
 
-    BuildGrid(fname, grid, &numRows, &numCols);
+    buildGrid(fname, grid, &numRows, &numCols);
 
     while(true) {
-        ShowGrid(grid, numRows, numCols);
+        showGrid(grid, numRows, numCols);
 
-        Prompt(&rowSelect, &colSelect, &colorSelect, grid);
+        prompt(&rowSelect, &colSelect, &colorSelect, grid, numRows, numCols);
         /*rowSelect = 0;
         colSelect = 0;
         colorSelect = 'p';*/
 
-        StackEntry entryUnderTest = Stackify(grid, rowSelect, colSelect);
+        StackEntry entryUnderTest = stackify(grid, rowSelect, colSelect);
 
         push(entryUnderTest, &s);
 
         while (s.top != NULL) {
             entryUnderTest = pop(&s);
-            CheckNeighbors(entryUnderTest, grid, &s, numRows, numCols);
+            if ((numRows != 0) || (numCols != 0)) {
+                checkNeighbors(entryUnderTest, grid, &s, numRows, numCols);
+            }
             grid[entryUnderTest.row][entryUnderTest.col] = colorSelect;
         }
     }
